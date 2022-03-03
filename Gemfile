@@ -57,3 +57,4 @@ gem 'devise'
 
 gem 'jquery-rails'
 
+gem 'chart-js-rails', '~> 0.1.4'

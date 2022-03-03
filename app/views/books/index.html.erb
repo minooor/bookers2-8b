@@ -12,6 +12,39 @@
       <h2>Books</h2>
       <%= render 'index', books: @books%>
       <%= render 'count', books: @books %>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+      <canvas id="myChart"></canvas>
+      <script>
+      const type = "line";
+      let data = {
+        labels: [6 + '日前', 5+ '日前', 4+ '日前', 3+ '日前', 2+ '日前', '昨日', '今日' ],
+        datasets: [{
+          label: "投稿した本の数",
+          data: [<%= @books.created_6days.count %>,<%= @books.created_5days.count %>,<%= @books.created_4days.count %>,<%= @books.created_3days.count %>,
+                 <%= @books.created_2days.count %>,<%= @yesterday_book.count %>,<%= @today_book.count %>],
+                 borderColor: 'blue',
+                fill: false,
+        }]
+      }
+      let options= {
+        scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: 10,
+            stepSize: 1,
+          }
+        }]
+        }
+      };
+      const ctx = document.getElementById("myChart").getContext("2d");
+      const myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+      </script>
     </div>
   </div>
 </div>
+
